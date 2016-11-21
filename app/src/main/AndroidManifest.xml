@@ -13,29 +13,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".auth.SplashActivty">
-
-        </activity>
+        <activity android:name=".auth.SplashActivty"></activity>
         <activity
             android:name=".auth.RegisterRoleActivity"
             android:theme="@style/AppNoActionBar" />
         <activity
             android:name=".auth.RegisterActivity"
             android:theme="@style/AppNoActionBar"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".auth.RegisterNameActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-            android:theme="@style/AppNoActionBar">
+            android:theme="@style/AppNoActionBar"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".auth.ProfilePhotoChooserActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+        <activity
+            android:name=".auth.ProfilePhotoChooserActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

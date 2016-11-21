@@ -8,6 +8,8 @@
         android:id="@+id/llButtonsContainer"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,7 +22,7 @@
             android:id="@+id/ivCancel"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_placeholder" />
+            android:src="@drawable/ic_cancel" />
 
         <Space
             android:id="@+id/space"
@@ -32,7 +34,7 @@
             android:id="@+id/ivOk"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_doc" />
+            android:src="@drawable/ic_ok" />
 
         <Space
             android:layout_width="0dp"

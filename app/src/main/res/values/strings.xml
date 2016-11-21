@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MedConfReminder</string>
+    <string name="app_name">Medical Conference Reminder</string>
+    <string name="no_inet">No internet connection</string>
+    ""
 </resources>
