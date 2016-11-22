@@ -63,7 +63,8 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Co
                 }
             }
         });
-//        holder.tvAddress.setText(model.address);
+        holder.tvAddress.setText(model.getLocation());
+        holder.tvDate.setText(model.getDate());
     }
 
     @Override

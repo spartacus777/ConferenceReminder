@@ -6,6 +6,7 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -34,7 +35,11 @@ public class Conference {
     @NotNull
     private String conferenceName;
 
-    //date
+    @Property
+    private String location;
+
+    @Property
+    private String date;
 
     @ToMany(referencedJoinProperty = "conferneceId")
 //    @OrderBy("date ASC")
@@ -61,13 +66,15 @@ private transient DaoSession daoSession;
 @Generated(hash = 394449787)
 private transient ConferenceDao myDao;
 
-@Generated(hash = 813867074)
-public Conference(Long id, @NotNull String conferenceId, @NotNull String userId,
-        @NotNull String conferenceName) {
+@Generated(hash = 1894370669)
+public Conference(Long id, @NotNull String conferenceId, @NotNull String userId, @NotNull String conferenceName,
+        String location, String date) {
     this.id = id;
     this.conferenceId = conferenceId;
     this.userId = userId;
     this.conferenceName = conferenceName;
+    this.location = location;
+    this.date = date;
 }
 
 @Generated(hash = 1436823095)
@@ -168,6 +175,22 @@ public void update() {
         throw new DaoException("Entity is detached from DAO context");
     }
     myDao.update(this);
+}
+
+public String getLocation() {
+    return this.location;
+}
+
+public void setLocation(String location) {
+    this.location = location;
+}
+
+public String getDate() {
+    return this.date;
+}
+
+public void setDate(String date) {
+    this.date = date;
 }
 
 /** called by internal mechanisms, do not call yourself. */

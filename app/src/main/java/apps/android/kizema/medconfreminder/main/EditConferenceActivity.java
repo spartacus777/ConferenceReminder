@@ -1,14 +1,19 @@
 package apps.android.kizema.medconfreminder.main;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import apps.android.kizema.medconfreminder.App;
 import apps.android.kizema.medconfreminder.R;
@@ -27,6 +32,8 @@ public class EditConferenceActivity extends BaseActivity {
 
     public static final String CONF_ID = "wejkfnwehed";
     private static final int REQ_CODE = 32;
+
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
     @BindView(R.id.rvNames)
     RecyclerView rvNames;
@@ -99,6 +106,9 @@ public class EditConferenceActivity extends BaseActivity {
 
         check();
 
+        tvDate.setText(conference.getDate());
+        etLocation.setText(conference.getLocation());
+
         if (UserHelper.getMyUser().getIsAdmin()){
             btnAdd.setVisibility(View.GONE);
         }
@@ -123,6 +133,24 @@ public class EditConferenceActivity extends BaseActivity {
     }
 
 
+    @OnClick(R.id.tvDate)
+    public void onDateCLicked(){
+        Calendar newCalendar = Calendar.getInstance();
+
+        DatePickerDialog fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                tvDate.setText(dateFormatter.format(newDate.getTime()));
+                conference.setDate(dateFormatter.format(newDate.getTime()));
+            }
+
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        fromDatePickerDialog.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
@@ -140,6 +168,10 @@ public class EditConferenceActivity extends BaseActivity {
 
         if (etName.getText() != null && etName.getText().toString().length() > 0){
             conference.setConferenceName(etName.getText().toString());
+        }
+
+        if (etLocation.getText() != null && etLocation.getText().toString().length() > 0) {
+            conference.setLocation(etLocation.getText().toString());
         }
 
         ConferenceDao dao = App.getDaoSession().getConferenceDao();

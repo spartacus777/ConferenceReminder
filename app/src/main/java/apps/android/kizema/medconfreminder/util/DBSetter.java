@@ -58,6 +58,8 @@ public class DBSetter {
             conference.setConferenceId(DEMOCONF_1);
             conference.setConferenceName("Main Demo conference");
             conference.setId(DEMOCONF_1_L);
+            conference.setLocation("Kyiv");
+            conference.setDate("10-12-2016");
             confDao.insert(conference);
         }
 
