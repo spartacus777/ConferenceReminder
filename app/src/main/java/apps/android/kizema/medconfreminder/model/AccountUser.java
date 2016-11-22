@@ -3,6 +3,7 @@ package apps.android.kizema.medconfreminder.model;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -14,7 +15,9 @@ import apps.android.kizema.medconfreminder.App;
  * Created by A.Kizema on 22.11.2016.
  */
 
-@Entity
+@Entity(indexes = {
+        @Index(value = "userId", unique = true)
+})
 public class AccountUser {
 
     @Id

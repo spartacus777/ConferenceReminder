@@ -19,6 +19,10 @@ public class UserHelper {
         return new BigInteger(130, random).toString(32);
     }
 
+    public static String generateConfId(){
+        return new BigInteger(130, random).toString(32);
+    }
+
     public static User getMyUser(){
         String pass = Session.getInstance().getPassToken();
         String name = Session.getInstance().getNameToken();

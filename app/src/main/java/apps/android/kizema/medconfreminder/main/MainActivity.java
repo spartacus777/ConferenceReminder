@@ -16,6 +16,7 @@ import apps.android.kizema.medconfreminder.auth.ProfilePhotoChooserActivity;
 import apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.main.ViewPagerAdapter.DataHolder;
+import apps.android.kizema.medconfreminder.util.DBSetter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,6 +43,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        //set DB with demo data
+        DBSetter.setDemoDb();
 
         init();
     }

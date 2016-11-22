@@ -30,20 +30,17 @@
         <activity
             android:name=".auth.RegisterNameActivity"
             android:theme="@style/AppNoActionBar"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".auth.ProfilePhotoChooserActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-
         <activity
             android:name=".auth.LoginActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity android:name=".main.MainActivity" />
+        <activity android:name=".main.EditConferenceActivity" />
 
-        <activity android:name=".main.MainActivity">
-
-        </activity>
-
-
+        <activity android:name=".main.TopicEditActivity"></activity>
     </application>
 
 </manifest>

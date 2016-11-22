@@ -5,7 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import apps.android.kizema.medconfreminder.App;
 import apps.android.kizema.medconfreminder.R;
+import apps.android.kizema.medconfreminder.model.Conference;
+import apps.android.kizema.medconfreminder.model.ConferenceDao;
+import apps.android.kizema.medconfreminder.model.Topic;
+import apps.android.kizema.medconfreminder.model.TopicDao;
+import apps.android.kizema.medconfreminder.util.LongGen;
+import apps.android.kizema.medconfreminder.util.UserHelper;
 import butterknife.ButterKnife;
 
 /**
@@ -20,8 +27,12 @@ public class InvitesFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
 
-//        init();
+        init();
 
         return view;
+    }
+
+    private void init(){
+
     }
 }
