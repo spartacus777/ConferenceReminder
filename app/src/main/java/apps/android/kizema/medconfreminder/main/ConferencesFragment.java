@@ -21,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by A.Kizema on 22.11.2016.
  */
@@ -58,13 +60,27 @@ public class ConferencesFragment extends BaseFragment implements ConferenceAdapt
         rvNames.setLayoutManager(mChatLayoutManager);
         rvNames.setHasFixedSize(true);
 
-        if (conferenceAdapter.getItemCount() == 0){
-            tvNoItems.setVisibility(View.VISIBLE);
-        }
+        check();
 
         if (!UserHelper.getMyUser().getIsAdmin()){
             btnAdd.setVisibility(View.GONE);
         }
+    }
+
+    private void check(){
+        if (conferenceAdapter.getItemCount() == 0){
+            tvNoItems.setVisibility(View.VISIBLE);
+            rvNames.setVisibility(View.GONE);
+
+        } else {
+            tvNoItems.setVisibility(View.GONE);
+            rvNames.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void onConferenceAdded(){
+        conferenceAdapter.update(getFromDb());
+        check();
     }
 
     public List<Conference> getFromDb(){
@@ -75,13 +91,23 @@ public class ConferencesFragment extends BaseFragment implements ConferenceAdapt
     @OnClick(R.id.btnAdd)
     public void onAddClick() {
         Intent intent = new Intent(getActivity(), EditConferenceActivity.class);
-        getActivity().startActivity(intent);
+        getActivity().startActivityForResult(intent, MainActivity.EDIT_CONF);
     }
 
     @Override
     public void onConferenceClicked(Conference c) {
         Intent intent = new Intent(getActivity(), EditConferenceActivity.class);
         intent.putExtra(EditConferenceActivity.CONF_ID, c.getConferenceId());
-        getActivity().startActivity(intent);
+        getActivity().startActivityForResult(intent, MainActivity.EDIT_CONF);
+    }
+
+    protected void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case MainActivity.EDIT_CONF:
+                if (resultCode == RESULT_OK) {
+                    onConferenceAdded();
+                }
+                return;
+        }
     }
 }

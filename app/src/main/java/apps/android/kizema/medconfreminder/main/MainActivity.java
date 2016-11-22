@@ -7,22 +7,26 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.auth.ProfilePhotoChooserActivity;
-import apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.main.ViewPagerAdapter.DataHolder;
 import apps.android.kizema.medconfreminder.util.DBSetter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts.CHOOSER_IMAGE_ACTIVITY;
 import static apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts.REQUEST_CODE_GALLERY;
+import static apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts.REQUEST_CODE_MAKE_PHOTO;
 
 public class MainActivity extends BaseActivity {
+
+    public static final int EDIT_CONF = 938;
 
     @BindView(R.id.pager)
     public ViewPager pager;
@@ -41,6 +45,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -79,9 +84,17 @@ public class MainActivity extends BaseActivity {
                     openImageEditorActivity(photoPath);
                     return;
                 }
+
+            case EDIT_CONF:
+                ((ConferencesFragment) viewPagerAdapter.getFragment(1)).handleOnActivityResult(requestCode, resultCode, data);
+                return;
+
+            case REQUEST_CODE_MAKE_PHOTO:
+            case CHOOSER_IMAGE_ACTIVITY:
+                ((ProfileFragment) viewPagerAdapter.getFragment(0)).handleOnActivityResult(requestCode, resultCode, data);
+                return;
         }
 
-        ((ProfileFragment) viewPagerAdapter.getFragment(0)).handleOnActivityResult(requestCode, resultCode, data);
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -95,6 +108,6 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(this, ProfilePhotoChooserActivity.class);
         intent.putExtra(ProfilePhotoChooserActivity.PATH, photoPath);
 
-        startActivityForResult(intent, ImageConstatnts.CHOOSER_IMAGE_ACTIVITY);
+        startActivityForResult(intent, CHOOSER_IMAGE_ACTIVITY);
     }
 }

@@ -49,9 +49,17 @@ public class EditConferenceActivity extends BaseActivity {
     @BindView(R.id.etLocation)
     EditText etLocation;
 
+    @BindView(R.id.etName)
+    EditText etName;
+
+    @BindView(R.id.ll0)
+    View llName;
+
+
     private TopicAdapter topicAdapter;
 
     private Conference conference = null;
+    private boolean isUpdate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +73,20 @@ public class EditConferenceActivity extends BaseActivity {
     private void init(){
         if (getIntent() != null){
             String cofId = getIntent().getStringExtra(CONF_ID);
-            if (cofId != null && cofId.length() > 0)
-            conference = Conference.findById(cofId);
+            if (cofId != null && cofId.length() > 0) {
+                conference = Conference.findById(cofId);
+                isUpdate = true;
+                llName.setVisibility(View.GONE);
+            }
         }
 
         if (conference == null){
             conference = new Conference();
             conference.setId(LongGen.generate());
             conference.setConferenceId(UserHelper.generateConfId());
-            conference.setConferenceName("");
+            conference.setConferenceName("New Conference");
             conference.setUserId(UserHelper.getMyUser().getUserId());
+            isUpdate = false;
         }
 
         getSupportActionBar().setTitle(conference.getConferenceName());
@@ -96,6 +108,7 @@ public class EditConferenceActivity extends BaseActivity {
             tvSave.setVisibility(View.GONE);
             etLocation.setVisibility(View.GONE);
             tvDate.setEnabled(false);
+            llName.setVisibility(View.GONE);
         }
     }
 
@@ -125,8 +138,27 @@ public class EditConferenceActivity extends BaseActivity {
     public void onSaveClick() {
         //save date and location
 
+        if (etName.getText() != null && etName.getText().toString().length() > 0){
+            conference.setConferenceName(etName.getText().toString());
+        }
+
         ConferenceDao dao = App.getDaoSession().getConferenceDao();
-        dao.update(conference);
+
+        if (isUpdate) {
+            dao.update(conference);
+        } else {
+            dao.insert(conference);
+        }
+
+        setResult(RESULT_OK);
+        finish();
+        overridePendingTransition(R.anim.tab_activity_transition_in, R.anim.tab_activity_transition_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
     }
 
     public void onTopicAdded(){
