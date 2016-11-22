@@ -23,10 +23,12 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ConfView
 
     private List<User> doctors;
     private OnDoctorClickListener listener;
+    private long confId;
 
-    public DoctorsAdapter(List<User> conferences, OnDoctorClickListener listener) {
+    public DoctorsAdapter(List<User> conferences, long  confId, OnDoctorClickListener listener) {
         this.doctors = conferences;
         this.listener = listener;
+        this.confId = confId;
     }
 
     public void update(List<User> conferences){
@@ -67,8 +69,15 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ConfView
 
     @Override
     public void onBindViewHolder(final DoctorsAdapter.ConfViewHolder holder, final int position) {
-        User model = doctors.get(position);
+        final User model = doctors.get(position);
         holder.tvName.setText(model.getName());
+
+        if (model.getConferneceId() == confId){
+            //he is invited
+            holder.ivInvite.setImageResource(R.drawable.ic_ok);
+            holder.ivInvite.setEnabled(false);
+        }
+
         holder.ivInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -15,6 +15,7 @@ import apps.android.kizema.medconfreminder.App;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.main.adapters.DoctorsAdapter;
+import apps.android.kizema.medconfreminder.model.Conference;
 import apps.android.kizema.medconfreminder.model.User;
 import apps.android.kizema.medconfreminder.model.UserDao;
 import butterknife.BindView;
@@ -35,10 +36,11 @@ public class InviteDocotrsActivity extends BaseActivity implements DoctorsAdapte
     public TextView tvSave;
 
     private DoctorsAdapter doctorsAdapter;
-    private long confId;
+    private String confId;
+    private Conference conference;
     private List<User> doctorsInvited = new ArrayList<>();
 
-    public static Intent getIntent(Activity activity, long conf){
+    public static Intent getIntent(Activity activity, String conf) {
         Intent intent = new Intent(activity, InviteDocotrsActivity.class);
         intent.putExtra(CONFERENCE, conf);
         return intent;
@@ -54,14 +56,15 @@ public class InviteDocotrsActivity extends BaseActivity implements DoctorsAdapte
     }
 
 
-    private void init(){
+    private void init() {
         getSupportActionBar().setTitle("Invite doctors");
 
-        if (getIntent() != null){
-            confId = getIntent().getLongExtra(CONFERENCE, 0L);
+        if (getIntent() != null) {
+            confId = getIntent().getStringExtra(CONFERENCE);
+            conference = Conference.findById(confId);
         }
 
-        doctorsAdapter = new DoctorsAdapter(getFromDb(), this);
+        doctorsAdapter = new DoctorsAdapter(getFromDb(), conference.getId(), this);
         rvNames.setAdapter(doctorsAdapter);
         LinearLayoutManager mChatLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvNames.setLayoutManager(mChatLayoutManager);
@@ -70,18 +73,32 @@ public class InviteDocotrsActivity extends BaseActivity implements DoctorsAdapte
         check();
     }
 
-    public List<User> getFromDb(){
-        UserDao dao = App.getDaoSession().getUserDao();
-        return dao.loadAll();
+    public List<User> getFromDb() {
+        return User.loadAllDoctors();
     }
 
     @OnClick(R.id.tvSave)
     public void onSave() {
-        //TODO
+
+        UserDao dao = App.getDaoSession().getUserDao();
+        for (User u : doctorsInvited) {
+            u.setConferneceId(conference.getId());
+            dao.update(u);
+        }
+
+        setResult(RESULT_OK);
+        finish();
+        overridePendingTransition(R.anim.tab_activity_transition_in, R.anim.tab_activity_transition_out);
     }
 
-    private void check(){
-        if (doctorsAdapter.getItemCount() == 0){
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
+    }
+
+    private void check() {
+        if (doctorsAdapter.getItemCount() == 0) {
             tvNoItems.setVisibility(View.VISIBLE);
             rvNames.setVisibility(View.GONE);
         } else {

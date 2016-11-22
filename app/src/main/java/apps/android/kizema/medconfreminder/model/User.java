@@ -38,6 +38,8 @@ public class User {
     @Property
     private String photo;
 
+    private long conferneceId;
+
     public static User findById(String userId){
         DaoSession daoSession = App.getDaoSession();
         UserDao userDao = daoSession.getUserDao();
@@ -51,15 +53,26 @@ public class User {
         return users.get(0);
     }
 
-    @Generated(hash = 447406661)
+    public static List<User> loadAllDoctors(){
+        DaoSession daoSession = App.getDaoSession();
+        UserDao userDao = daoSession.getUserDao();
+
+        QueryBuilder<User> queryBuilder = userDao.queryBuilder();
+        List<User> users = queryBuilder.where(UserDao.Properties.IsAdmin.eq(false)).list();
+
+        return users;
+    }
+
+    @Generated(hash = 643780090)
     public User(Long id, @NotNull String userId, String email, @NotNull String name,
-            boolean isAdmin, String photo) {
+            boolean isAdmin, String photo, long conferneceId) {
         this.id = id;
         this.userId = userId;
         this.email = email;
         this.name = name;
         this.isAdmin = isAdmin;
         this.photo = photo;
+        this.conferneceId = conferneceId;
     }
 
     @Generated(hash = 586692638)
@@ -113,5 +126,13 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public long getConferneceId() {
+        return this.conferneceId;
+    }
+
+    public void setConferneceId(long conferneceId) {
+        this.conferneceId = conferneceId;
     }
 }

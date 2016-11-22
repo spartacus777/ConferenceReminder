@@ -138,8 +138,8 @@ public class EditConferenceActivity extends BaseActivity {
 
     @OnClick(R.id.tvInviteDoctors)
     public void onInviteDoctors() {
-        //create new topic
-        startActivityForResult(InviteDocotrsActivity.getIntent(this, conference.getId()), INVITE_DOCS);
+        saveConference();
+        startActivityForResult(InviteDocotrsActivity.getIntent(this, conference.getConferenceId()), INVITE_DOCS);
     }
 
 
@@ -167,15 +167,15 @@ public class EditConferenceActivity extends BaseActivity {
             case REQ_CODE:
                 onTopicAdded();
                 return;
+            case INVITE_DOCS:
+                return;
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick(R.id.tvSave)
-    public void onSaveClick() {
-        //save date and location
 
+    private void saveConference(){
         if (etName.getText() != null && etName.getText().toString().length() > 0){
             conference.setConferenceName(etName.getText().toString());
         }
@@ -185,12 +185,18 @@ public class EditConferenceActivity extends BaseActivity {
         }
 
         ConferenceDao dao = App.getDaoSession().getConferenceDao();
-
-        if (isUpdate) {
+        Conference c = Conference.findById(conference.getConferenceId());
+        if (c != null) {
             dao.update(conference);
         } else {
             dao.insert(conference);
         }
+    }
+
+    @OnClick(R.id.tvSave)
+    public void onSaveClick() {
+        //save date and location
+        saveConference();
 
         setResult(RESULT_OK);
         finish();
@@ -199,6 +205,12 @@ public class EditConferenceActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        //todo logic
+        if (!isUpdate){
+            ConferenceDao dao = App.getDaoSession().getConferenceDao();
+            dao.delete(conference);
+        }
+
         setResult(RESULT_CANCELED);
         super.onBackPressed();
     }
