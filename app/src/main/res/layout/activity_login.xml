@@ -48,7 +48,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/box"
             android:maxLines="1"
-            android:hint="Name or E-mail"
+            android:hint="Name"
             android:textSize="16sp" />
 
         <EditText

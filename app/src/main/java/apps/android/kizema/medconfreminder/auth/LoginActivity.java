@@ -12,9 +12,10 @@ import apps.android.kizema.medconfreminder.CoreService;
 import apps.android.kizema.medconfreminder.MainActivity;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.auth.control.AuthServerApi;
-import apps.android.kizema.medconfreminder.util.validator.EmailValidator;
+import apps.android.kizema.medconfreminder.util.validator.NameValidator;
 import apps.android.kizema.medconfreminder.util.validator.PasswordValidator;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
@@ -37,22 +38,20 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
     }
 
     @OnClick(R.id.tvNext)
     public void onNextClicked() {
 
-        if (!EmailValidator.getInstance().validate(etEmail.getText().toString())){
-            Snackbar snackbar = Snackbar
-                    .make(etEmail, "Email is invalid", Snackbar.LENGTH_SHORT);
-            snackbar.show();
+        if (!NameValidator.getInstance().validate(etEmail.getText().toString())){
+            Snackbar.make(etEmail, "Email is invalid", Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         if (!PasswordValidator.getInstance().validate(etPassword.getText().toString())){
-            Snackbar snackbar = Snackbar
-                    .make(etEmail, "Password should be more than 6 symbols and contain at least one digit", Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            Snackbar.make(etEmail, "Password should be more than 6 symbols and contain at least one digit", Snackbar.LENGTH_SHORT)  .show();
             return;
         }
 
@@ -70,7 +69,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onError(Object err) {
                 hideProgress();
-                Snackbar.make(etEmail, R.string.no_inet, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(etEmail, "Wrong credentials", Snackbar.LENGTH_SHORT).show();
             }
         });
     }

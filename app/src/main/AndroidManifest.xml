@@ -35,10 +35,13 @@
             android:name=".auth.ProfilePhotoChooserActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
-        <activity android:name=".auth.LoginActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" ></activity>
+        <activity
+            android:name=".auth.LoginActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+
+        </activity>
 
 
     </application>
