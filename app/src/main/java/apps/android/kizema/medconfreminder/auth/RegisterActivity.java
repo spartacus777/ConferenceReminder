@@ -75,6 +75,6 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
 
-        startActivity(RegisterNameActivity.getIntent(this, false, etPassword.getText().toString(), etEmail.getText().toString()));
+        startActivity(RegisterNameActivity.getIntent(this, isAdmin, etPassword.getText().toString(), etEmail.getText().toString()));
     }
 }

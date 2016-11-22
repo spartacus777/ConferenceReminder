@@ -29,7 +29,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tvNext)
     TextView tvNext;
 
-    public static Intent getIntent(Activity activity, boolean isAdmin){
+    public static Intent getIntent(Activity activity){
         Intent intent = new Intent(activity, LoginActivity.class);
         return intent;
     }

@@ -2,6 +2,7 @@ package apps.android.kizema.medconfreminder.model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -15,6 +16,9 @@ import apps.android.kizema.medconfreminder.App;
 
 @Entity
 public class AccountUser {
+
+    @Id
+    private Long id;
 
     @NotNull
     private String userId;
@@ -42,9 +46,10 @@ public class AccountUser {
         return accountUsers.get(0);
     }
 
-    @Generated(hash = 889277749)
-    public AccountUser(@NotNull String userId, @NotNull String password,
+    @Generated(hash = 608732253)
+    public AccountUser(Long id, @NotNull String userId, @NotNull String password,
             @NotNull String name) {
+        this.id = id;
         this.userId = userId;
         this.password = password;
         this.name = name;
@@ -76,6 +81,14 @@ public class AccountUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

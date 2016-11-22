@@ -10,4 +10,6 @@ public class ImageConstatnts {
     public static final int CHOOSER_IMAGE_ACTIVITY = 830;
     public static final String APP_FOLDER_IMAGES = "/conference";
 
+    public static final int REQUEST_CODE_GALLERY = 32;
+    public static final int REQUEST_CODE_MAKE_PHOTO = 82;
 }

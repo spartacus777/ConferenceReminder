@@ -25,15 +25,13 @@ import java.util.Date;
 import java.util.List;
 
 import apps.android.kizema.medconfreminder.R;
+import apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts;
 
 /**
  * Created by A.Kizema on 22.11.2016.
  */
 
 public class BaseActivity extends AppCompatActivity {
-
-    protected static final int REQUEST_CODE_GALLERY = 32;
-    protected static final int REQUEST_CODE_MAKE_PHOTO = 82;
 
     private Dialog progressDialog;
     private boolean isShownDialog = false;
@@ -162,7 +160,7 @@ public class BaseActivity extends AppCompatActivity {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_CODE_MAKE_PHOTO);
+                startActivityForResult(takePictureIntent, ImageConstatnts.REQUEST_CODE_MAKE_PHOTO);
             }
         }
 
@@ -180,7 +178,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (isIntentSafe){
             startActivityForResult(Intent.createChooser(intent,
-                    "Select from gallery"), REQUEST_CODE_GALLERY);
+                    "Select from gallery"), ImageConstatnts.REQUEST_CODE_GALLERY);
         }
     }
 

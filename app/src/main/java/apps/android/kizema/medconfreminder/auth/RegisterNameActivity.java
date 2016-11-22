@@ -119,7 +119,7 @@ public class RegisterNameActivity extends BaseActivity implements PictureGetterD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_MAKE_PHOTO:
+            case ImageConstatnts.REQUEST_CODE_MAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     if (photoPath == null && data != null){
                         photoPath = data.getStringExtra(ImageConstatnts.FILE_NAME);
@@ -136,7 +136,7 @@ public class RegisterNameActivity extends BaseActivity implements PictureGetterD
                 }
                 return;
 
-            case REQUEST_CODE_GALLERY:
+            case ImageConstatnts.REQUEST_CODE_GALLERY:
                 if (resultCode == RESULT_OK) {
                     Uri selectedImageUri = data.getData();
                     photoPath = getPath(selectedImageUri);

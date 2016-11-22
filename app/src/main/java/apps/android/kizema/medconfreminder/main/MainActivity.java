@@ -2,19 +2,35 @@ package apps.android.kizema.medconfreminder.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import apps.android.kizema.medconfreminder.App;
-import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.R;
-import apps.android.kizema.medconfreminder.model.DaoSession;
-import apps.android.kizema.medconfreminder.model.User;
-import apps.android.kizema.medconfreminder.model.UserDao;
+import apps.android.kizema.medconfreminder.auth.ProfilePhotoChooserActivity;
+import apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts;
+import apps.android.kizema.medconfreminder.base.BaseActivity;
+import apps.android.kizema.medconfreminder.main.ViewPagerAdapter.DataHolder;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts.REQUEST_CODE_GALLERY;
 
 public class MainActivity extends BaseActivity {
+
+    @BindView(R.id.pager)
+    public ViewPager pager;
+
+    @BindView(R.id.ptTabStrip)
+    public PagerTabStrip ptTabStrip;
+
+    private ViewPagerAdapter viewPagerAdapter;
+
 
     public static Intent getIntent(Activity activity){
         Intent intent = new Intent(activity, MainActivity.class);
@@ -25,11 +41,57 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        DaoSession daoSession = App.getDaoSession();
-        UserDao noteDao = daoSession.getUserDao();
+        init();
+    }
 
-        List<User> users = noteDao.loadAll();
-        Log.d("DB", "SIZE : " + users.size());
+
+    private void init() {
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this, getAdapterData());
+        pager.setAdapter(viewPagerAdapter);
+    }
+
+    private List<DataHolder> getAdapterData() {
+
+        DataHolder googlePlusFragInfo = new DataHolder(ProfileFragment.class.getName(),
+                null, "Profile");
+
+//        DataHolder emptyFrag = new DataHolder(DemoFragment.class.getName(), null, "Conferences");
+//        DataHolder emptyFrag = new DataHolder(DemoFragment.class.getName(), null, "Invites");
+        List<DataHolder> dataHolders = new ArrayList<>(1);
+        dataHolders.add(googlePlusFragInfo);
+//        dataHolders.add(emptyFrag);
+
+        return dataHolders;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CODE_GALLERY:
+                if (resultCode == RESULT_OK) {
+                    Uri selectedImageUri = data.getData();
+                    String photoPath = getPath(selectedImageUri);
+                    openImageEditorActivity(photoPath);
+                    return;
+                }
+        }
+
+        ((ProfileFragment) viewPagerAdapter.getFragment(0)).handleOnActivityResult(requestCode, resultCode, data);
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void openImageEditorActivity(String photoPath) {
+        if (photoPath == null || photoPath.length() == 0){
+            Snackbar.make(pager, "Error while downloading", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, ProfilePhotoChooserActivity.class);
+        intent.putExtra(ProfilePhotoChooserActivity.PATH, photoPath);
+
+        startActivityForResult(intent, ImageConstatnts.CHOOSER_IMAGE_ACTIVITY);
     }
 }

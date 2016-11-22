@@ -2,9 +2,11 @@ package apps.android.kizema.medconfreminder.model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
@@ -17,6 +19,9 @@ import apps.android.kizema.medconfreminder.App;
         @Index(value = "userId", unique = true)
 })
 public class User {
+
+    @Id
+    private Long id;
 
     @NotNull
     private String userId;
@@ -37,7 +42,8 @@ public class User {
         DaoSession daoSession = App.getDaoSession();
         UserDao userDao = daoSession.getUserDao();
 
-        List<User> users = userDao.queryRaw("userId = ?", userId);
+        QueryBuilder<User> queryBuilder = userDao.queryBuilder();
+        List<User> users = queryBuilder.where(UserDao.Properties.UserId.eq(userId)).list();
         if (users == null || users.size() == 0){
             return null;
         }
@@ -45,9 +51,10 @@ public class User {
         return users.get(0);
     }
 
-    @Generated(hash = 1758588706)
-    public User(@NotNull String userId, String email, @NotNull String name,
-                boolean isAdmin, String photo) {
+    @Generated(hash = 447406661)
+    public User(Long id, @NotNull String userId, String email, @NotNull String name,
+            boolean isAdmin, String photo) {
+        this.id = id;
         this.userId = userId;
         this.email = email;
         this.name = name;
@@ -98,5 +105,13 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

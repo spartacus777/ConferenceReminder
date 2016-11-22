@@ -16,6 +16,8 @@ import com.nostra13.universalimageloader.core.decode.ImageDecodingInfo;
 import java.io.IOException;
 import java.io.InputStream;
 
+import apps.android.kizema.medconfreminder.R;
+
 /**
  * Created by A.Kizema on 22.11.2016.
  */
@@ -60,6 +62,11 @@ public class ImageLoaderHelper {
                 .memoryCache(new UsingFreqLimitedMemoryCache(memoryCache))
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .imageDecoder(new NutraBaseImageDecoder(true))
+                .defaultDisplayImageOptions(
+                        new DisplayImageOptions.Builder()
+                                .showImageForEmptyUri(R.drawable.ic_placeholder)
+                                .showImageOnFail(R.drawable.ic_placeholder)
+                .build())
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple());
 
         ImageLoader.getInstance().init(config.build());

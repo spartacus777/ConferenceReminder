@@ -43,7 +43,7 @@ public class RegisterRoleActivity extends BaseActivity {
 
     @OnClick(R.id.tvLogIn)
     public void submit() {
-        startActivity(LoginActivity.getIntent(this, false));
+        startActivity(LoginActivity.getIntent(this));
     }
 
     @OnClick(R.id.llDoctor)
