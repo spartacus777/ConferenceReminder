@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 
-import apps.android.kizema.medconfreminder.BaseActivity;
+import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.util.BitmapHelper;
 import apps.android.kizema.medconfreminder.util.ExifHelper;

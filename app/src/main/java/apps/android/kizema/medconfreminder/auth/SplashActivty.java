@@ -3,8 +3,8 @@ package apps.android.kizema.medconfreminder.auth;
 import android.content.Intent;
 import android.os.Bundle;
 
-import apps.android.kizema.medconfreminder.BaseActivity;
-import apps.android.kizema.medconfreminder.MainActivity;
+import apps.android.kizema.medconfreminder.base.BaseActivity;
+import apps.android.kizema.medconfreminder.main.MainActivity;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.auth.helpers.Session;
 import apps.android.kizema.medconfreminder.model.AccountUser;

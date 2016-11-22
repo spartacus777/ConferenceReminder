@@ -1,4 +1,4 @@
-package apps.android.kizema.medconfreminder;
+package apps.android.kizema.medconfreminder.base;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import apps.android.kizema.medconfreminder.R;
 
 /**
  * Created by A.Kizema on 22.11.2016.

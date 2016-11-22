@@ -8,7 +8,7 @@ import android.text.SpannableStringBuilder;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import apps.android.kizema.medconfreminder.BaseActivity;
+import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.util.Utility;
 import apps.android.kizema.medconfreminder.util.validator.EmailValidator;
