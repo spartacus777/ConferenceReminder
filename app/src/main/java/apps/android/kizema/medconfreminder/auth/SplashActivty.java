@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import apps.android.kizema.medconfreminder.BaseActivity;
+import apps.android.kizema.medconfreminder.MainActivity;
 import apps.android.kizema.medconfreminder.R;
+import apps.android.kizema.medconfreminder.auth.helpers.Session;
+import apps.android.kizema.medconfreminder.model.AccountUser;
 
 public class SplashActivty extends BaseActivity {
 
@@ -13,7 +16,16 @@ public class SplashActivty extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_activty);
 
-//        TODO check session
+        // check if we have session
+        if (Session.getInstance().getNameToken() != null && Session.getInstance().getNameToken().length() > 0 &&
+                Session.getInstance().getPassToken() != null && Session.getInstance().getPassToken().length() > 0 ){
+
+            if (AccountUser.find(Session.getInstance().getNameToken(), Session.getInstance().getPassToken()) != null){
+                openApp();
+                return;
+            }
+        }
+
         startRegister();
     }
 
@@ -23,9 +35,10 @@ public class SplashActivty extends BaseActivity {
         startActivity(intent);
     }
 
-    //we have valid token
     private void openApp(){
-
+        Intent intent = MainActivity.getIntent(SplashActivty.this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 }

@@ -2,6 +2,7 @@ package apps.android.kizema.medconfreminder.auth.control;
 
 
 import apps.android.kizema.medconfreminder.App;
+import apps.android.kizema.medconfreminder.auth.helpers.Session;
 import apps.android.kizema.medconfreminder.model.AccountUser;
 import apps.android.kizema.medconfreminder.model.AccountUserDao;
 import apps.android.kizema.medconfreminder.model.DaoSession;
@@ -31,6 +32,8 @@ public class AuthServerEmulator implements AuthServerApi {
         accountUser.setPassword(pass);
         accountUser.setName(name);
         accountUserDao.insert(accountUser);
+
+        Session.getInstance().saveToken(name, pass);
 
         //emulate server work
         new Thread(new Runnable() {
@@ -70,6 +73,7 @@ public class AuthServerEmulator implements AuthServerApi {
                     public void run() {
 
                         if (AccountUser.find(name, pass) != null){
+                            Session.getInstance().saveToken(name, pass);
                             listener.onRegistered();
                         } else {
                             listener.onError("");
