@@ -45,7 +45,7 @@ public class Conference {
     private List<Topic> topics;
 
     @ToMany(referencedJoinProperty = "conferneceId")
-    private List<User> invitedDoctors;
+    private List<ConferenceUserTable> invitedDoctors;
 
     public static Conference findById(String conferenceId){
         DaoSession daoSession = App.getDaoSession();
@@ -199,15 +199,15 @@ public void setDate(String date) {
  * To-many relationship, resolved on first access (and after reset).
  * Changes to to-many relations are not persisted, make changes to the target entity.
  */
-@Generated(hash = 277089167)
-public List<User> getInvitedDoctors() {
+@Generated(hash = 656827969)
+public List<ConferenceUserTable> getInvitedDoctors() {
     if (invitedDoctors == null) {
         final DaoSession daoSession = this.daoSession;
         if (daoSession == null) {
             throw new DaoException("Entity is detached from DAO context");
         }
-        UserDao targetDao = daoSession.getUserDao();
-        List<User> invitedDoctorsNew = targetDao._queryConference_InvitedDoctors(id);
+        ConferenceUserTableDao targetDao = daoSession.getConferenceUserTableDao();
+        List<ConferenceUserTable> invitedDoctorsNew = targetDao._queryConference_InvitedDoctors(id);
         synchronized (this) {
             if (invitedDoctors == null) {
                 invitedDoctors = invitedDoctorsNew;

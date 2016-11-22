@@ -12,6 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import apps.android.kizema.medconfreminder.R;
+import apps.android.kizema.medconfreminder.model.ConferenceUserTable;
 import apps.android.kizema.medconfreminder.model.User;
 import apps.android.kizema.medconfreminder.util.ImageLoaderHelper;
 
@@ -72,10 +73,13 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ConfView
         final User model = doctors.get(position);
         holder.tvName.setText(model.getName());
 
-        if (model.getConferneceId() == confId){
-            //he is invited
-            holder.ivInvite.setImageResource(R.drawable.ic_ok);
-            holder.ivInvite.setEnabled(false);
+        List<ConferenceUserTable> list = model.getConferenceIds();
+        for (ConferenceUserTable conferenceUserTable: list) {
+            if (conferenceUserTable.getConferneceId() == confId){
+                //he is invited
+                holder.ivInvite.setImageResource(R.drawable.ic_ok);
+                holder.ivInvite.setEnabled(false);
+            }
         }
 
         holder.ivInvite.setOnClickListener(new View.OnClickListener() {

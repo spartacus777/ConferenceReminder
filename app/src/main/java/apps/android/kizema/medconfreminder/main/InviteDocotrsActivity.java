@@ -16,8 +16,10 @@ import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.main.adapters.DoctorsAdapter;
 import apps.android.kizema.medconfreminder.model.Conference;
+import apps.android.kizema.medconfreminder.model.ConferenceUserTable;
 import apps.android.kizema.medconfreminder.model.User;
 import apps.android.kizema.medconfreminder.model.UserDao;
+import apps.android.kizema.medconfreminder.util.LongGen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -81,8 +83,13 @@ public class InviteDocotrsActivity extends BaseActivity implements DoctorsAdapte
     public void onSave() {
 
         UserDao dao = App.getDaoSession().getUserDao();
+
         for (User u : doctorsInvited) {
-            u.setConferneceId(conference.getId());
+            ConferenceUserTable conferenceUserTable = new ConferenceUserTable();
+            conferenceUserTable.setConferneceId(conference.getId());
+            conferenceUserTable.setUserId(u.getId());
+            conferenceUserTable.setId(LongGen.generate());
+            u.getConferenceIds().add(conferenceUserTable);
             dao.update(u);
         }
 
