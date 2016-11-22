@@ -32,6 +32,7 @@ public class EditConferenceActivity extends BaseActivity {
 
     public static final String CONF_ID = "wejkfnwehed";
     private static final int REQ_CODE = 32;
+    private static final int INVITE_DOCS = 922;
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -62,6 +63,8 @@ public class EditConferenceActivity extends BaseActivity {
     @BindView(R.id.ll0)
     View llName;
 
+    @BindView(R.id.tvInviteDoctors)
+    TextView tvInviteDoctors;
 
     private TopicAdapter topicAdapter;
 
@@ -119,6 +122,7 @@ public class EditConferenceActivity extends BaseActivity {
             etLocation.setVisibility(View.GONE);
             tvDate.setEnabled(false);
             llName.setVisibility(View.GONE);
+            tvInviteDoctors.setVisibility(View.GONE);
         }
     }
 
@@ -130,6 +134,12 @@ public class EditConferenceActivity extends BaseActivity {
     public void onAddClick() {
         //create new topic
         startActivityForResult(TopicEditActivity.getIntent(this, conference.getId()), REQ_CODE);
+    }
+
+    @OnClick(R.id.tvInviteDoctors)
+    public void onInviteDoctors() {
+        //create new topic
+        startActivityForResult(InviteDocotrsActivity.getIntent(this, conference.getId()), INVITE_DOCS);
     }
 
 

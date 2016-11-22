@@ -147,6 +147,18 @@
         android:layout_height="wrap_content"
         android:text="Save"/>
 
+    <TextView
+        android:id="@+id/tvInviteDoctors"
+        android:layout_above="@id/tvSave"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Invite Doctors"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

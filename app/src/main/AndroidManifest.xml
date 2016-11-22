@@ -39,8 +39,8 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity android:name=".main.MainActivity" />
         <activity android:name=".main.EditConferenceActivity" />
-
-        <activity android:name=".main.TopicEditActivity"></activity>
+        <activity android:name=".main.TopicEditActivity" />
+        <activity android:name=".main.InviteDocotrsActivity"></activity>
     </application>
 
 </manifest>
