@@ -15,7 +15,7 @@ import apps.android.kizema.medconfreminder.App;
  */
 
 @Entity(indexes = {
-        @Index(value = "userId", unique = true)
+        @Index(value = "id", unique = true)
 })
 public class ConferenceUserTable {
 

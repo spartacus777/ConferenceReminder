@@ -17,6 +17,7 @@ import apps.android.kizema.medconfreminder.auth.ProfilePhotoChooserActivity;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.main.ViewPagerAdapter.DataHolder;
 import apps.android.kizema.medconfreminder.util.DBSetter;
+import apps.android.kizema.medconfreminder.util.UserHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -62,14 +63,19 @@ public class MainActivity extends BaseActivity {
     }
 
     private List<DataHolder> getAdapterData() {
+        boolean isAdmin = UserHelper.getMyUser().getIsAdmin();
+
         DataHolder profileFrag = new DataHolder(ProfileFragment.class.getName(), null, "Profile");
         DataHolder confFrag = new DataHolder(ConferencesFragment.class.getName(), null, "Conferences");
-        DataHolder inviteFrag = new DataHolder(InvitesFragment.class.getName(), null, "Invites");
 
-        List<DataHolder> dataHolders = new ArrayList<>(1);
+        List<DataHolder> dataHolders = new ArrayList<>();
         dataHolders.add(profileFrag);
         dataHolders.add(confFrag);
-        dataHolders.add(inviteFrag);
+        if (!isAdmin) {
+            //we add this fragment only for doctors
+            DataHolder inviteFrag = new DataHolder(InvitesFragment.class.getName(), null, "Invites");
+            dataHolders.add(inviteFrag);
+        }
 
         return dataHolders;
     }

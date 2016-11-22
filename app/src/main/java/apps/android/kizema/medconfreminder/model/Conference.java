@@ -60,6 +60,20 @@ public class Conference {
         return conferences.get(0);
     }
 
+
+    public static Conference findById(long conferenceId){
+        DaoSession daoSession = App.getDaoSession();
+        ConferenceDao confDao = daoSession.getConferenceDao();
+
+        QueryBuilder<Conference> queryBuilder = confDao.queryBuilder();
+        List<Conference> conferences = queryBuilder.where(ConferenceDao.Properties.Id.eq(conferenceId)).list();
+        if (conferences == null || conferences.size() == 0){
+            return null;
+        }
+
+        return conferences.get(0);
+    }
+
 /** Used to resolve relations */
 @Generated(hash = 2040040024)
 private transient DaoSession daoSession;

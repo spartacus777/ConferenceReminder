@@ -86,7 +86,9 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ConfView
             @Override
             public void onClick(View view) {
                 if (listener != null){
-                    listener.onDoctorClicked(doctors.get(holder.getAdapterPosition()));
+                    if (holder.getAdapterPosition() >= 0) {
+                        listener.onDoctorClicked(doctors.get(holder.getAdapterPosition()));
+                    }
                 }
 
                 holder.ivInvite.setImageResource(R.drawable.ic_ok);

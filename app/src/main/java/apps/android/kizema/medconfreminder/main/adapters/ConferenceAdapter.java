@@ -58,8 +58,10 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Co
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listener != null){
-                    listener.onConferenceClicked(conferences.get(holder.getAdapterPosition()));
+                if (listener != null) {
+                    if (holder.getAdapterPosition() >= 0) {
+                        listener.onConferenceClicked(conferences.get(holder.getAdapterPosition()));
+                    }
                 }
             }
         });
