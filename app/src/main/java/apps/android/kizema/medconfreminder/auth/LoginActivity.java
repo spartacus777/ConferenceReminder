@@ -4,24 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.text.SpannableStringBuilder;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import apps.android.kizema.medconfreminder.BaseActivity;
+import apps.android.kizema.medconfreminder.CoreService;
+import apps.android.kizema.medconfreminder.MainActivity;
 import apps.android.kizema.medconfreminder.R;
-import apps.android.kizema.medconfreminder.util.Utility;
+import apps.android.kizema.medconfreminder.auth.control.AuthServerApi;
 import apps.android.kizema.medconfreminder.util.validator.EmailValidator;
 import apps.android.kizema.medconfreminder.util.validator.PasswordValidator;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterActivity extends BaseActivity {
-
-    private static final String IS_ADMIN = "isAdmin";
-
-    private boolean isAdmin;
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.etEmail)
     EditText etEmail;
@@ -33,29 +29,14 @@ public class RegisterActivity extends BaseActivity {
     TextView tvNext;
 
     public static Intent getIntent(Activity activity, boolean isAdmin){
-        Intent intent = new Intent(activity, RegisterActivity.class);
-        intent.putExtra(IS_ADMIN, isAdmin);
+        Intent intent = new Intent(activity, LoginActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
-
-        isAdmin = getIntent().getBooleanExtra(IS_ADMIN, false);
-        tvNextApplyText();
-    }
-
-    private void tvNextApplyText(){
-        int color = getResources().getColor(R.color.colorPrimary);
-
-        final SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append("Click");
-        sb.append(Utility.getSpannableStringWithColorValue(" NEXT", color));
-        sb.append(" to register");
-        tvNext.setText(sb);
+        setContentView(R.layout.activity_login);
     }
 
     @OnClick(R.id.tvNext)
@@ -75,6 +56,22 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
 
-        startActivity(RegisterNameActivity.getIntent(this, false, etPassword.getText().toString(), etEmail.getText().toString()));
+        showProgress();
+        CoreService.getInstance().getAuthServerApi().login(etEmail.getText().toString(), etPassword.getText().toString(), new AuthServerApi.OnRegisterListener() {
+            @Override
+            public void onRegistered() {
+                hideProgress();
+
+                Intent intent = MainActivity.getIntent(LoginActivity.this);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(Object err) {
+                hideProgress();
+                Snackbar.make(etEmail, R.string.no_inet, Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

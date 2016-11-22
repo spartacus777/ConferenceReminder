@@ -1,18 +1,18 @@
 package apps.android.kizema.medconfreminder.auth;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.TextView;
 
+import apps.android.kizema.medconfreminder.BaseActivity;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.util.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterRoleActivity extends AppCompatActivity {
+public class RegisterRoleActivity extends BaseActivity {
 
     @BindView(R.id.tvLogIn)
     TextView tvLogIn;
@@ -43,8 +43,7 @@ public class RegisterRoleActivity extends AppCompatActivity {
 
     @OnClick(R.id.tvLogIn)
     public void submit() {
-//        Intent intent = new Intent(this, login);
-//                startActivity(intent);
+        startActivity(LoginActivity.getIntent(this, false));
     }
 
     @OnClick(R.id.llDoctor)

@@ -38,6 +38,18 @@ public class BaseActivity extends AppCompatActivity {
     private View progress;
     private Animation anim;
 
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.tab_activity_transition_in, R.anim.tab_activity_transition_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.tab_activity_transition_in, R.anim.tab_activity_transition_out);
+    }
+
     private void initAnimation(){
         if (anim == null) {
             anim = new RotateAnimation(360.0f, 0.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);

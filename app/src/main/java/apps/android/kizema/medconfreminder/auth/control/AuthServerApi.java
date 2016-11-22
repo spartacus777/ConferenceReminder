@@ -1,8 +1,5 @@
 package apps.android.kizema.medconfreminder.auth.control;
 
-/**
- * Created by A.Kizema on 22.11.2016.
- */
 
 public interface AuthServerApi {
 
@@ -12,5 +9,7 @@ public interface AuthServerApi {
     }
 
     void register(String name, String mail, String pass, String photo, boolean isAdmin, final AuthServerEmulator.OnRegisterListener listener);
+
+    void login(String name, String pass, final AuthServerEmulator.OnRegisterListener listener);
 
 }

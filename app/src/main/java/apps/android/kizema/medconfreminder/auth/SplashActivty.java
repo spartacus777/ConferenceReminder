@@ -2,11 +2,11 @@ package apps.android.kizema.medconfreminder.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
+import apps.android.kizema.medconfreminder.BaseActivity;
 import apps.android.kizema.medconfreminder.R;
 
-public class SplashActivty extends AppCompatActivity {
+public class SplashActivty extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class SplashActivty extends AppCompatActivity {
 
     private void startRegister(){
         Intent intent = new Intent(this, RegisterRoleActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

@@ -26,4 +26,25 @@ public class AuthServerEmulator implements AuthServerApi {
         }).start();
     }
 
+    @Override
+    public void login(String name, String pass, final OnRegisterListener listener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                App.getUIHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onRegistered();
+                    }
+                });
+            }
+        }).start();
+    }
+
 }
