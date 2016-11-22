@@ -53,15 +53,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private List<DataHolder> getAdapterData() {
+        DataHolder profileFrag = new DataHolder(ProfileFragment.class.getName(), null, "Profile");
+        DataHolder confFrag = new DataHolder(ConferencesFragment.class.getName(), null, "Conferences");
+        DataHolder inviteFrag = new DataHolder(InvitesFragment.class.getName(), null, "Invites");
 
-        DataHolder googlePlusFragInfo = new DataHolder(ProfileFragment.class.getName(),
-                null, "Profile");
-
-//        DataHolder emptyFrag = new DataHolder(DemoFragment.class.getName(), null, "Conferences");
-//        DataHolder emptyFrag = new DataHolder(DemoFragment.class.getName(), null, "Invites");
         List<DataHolder> dataHolders = new ArrayList<>(1);
-        dataHolders.add(googlePlusFragInfo);
-//        dataHolders.add(emptyFrag);
+        dataHolders.add(profileFrag);
+        dataHolders.add(confFrag);
+        dataHolders.add(inviteFrag);
 
         return dataHolders;
     }
