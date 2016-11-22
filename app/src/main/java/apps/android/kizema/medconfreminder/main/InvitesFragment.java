@@ -34,7 +34,6 @@ public class InvitesFragment extends BaseFragment implements InviteAdapter.OnInv
 
     private InviteAdapter inviteAdapter;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +41,6 @@ public class InvitesFragment extends BaseFragment implements InviteAdapter.OnInv
         ButterKnife.bind(this, view);
 
         init();
-
         return view;
     }
 

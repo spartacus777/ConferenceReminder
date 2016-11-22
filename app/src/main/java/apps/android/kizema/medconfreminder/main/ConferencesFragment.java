@@ -38,7 +38,6 @@ public class ConferencesFragment extends BaseFragment implements ConferenceAdapt
     @BindView(R.id.btnAdd)
     View btnAdd;
 
-
     private ConferenceAdapter conferenceAdapter;
 
     @Override
@@ -78,12 +77,12 @@ public class ConferencesFragment extends BaseFragment implements ConferenceAdapt
         }
     }
 
-    public void onConferenceAdded(){
+    private void onConferenceAdded(){
         conferenceAdapter.update(getFromDb());
         check();
     }
 
-    public List<Conference> getFromDb(){
+    private List<Conference> getFromDb(){
         ConferenceDao conferenceDao = App.getDaoSession().getConferenceDao();
         return conferenceDao.loadAll();
     }
@@ -101,7 +100,7 @@ public class ConferencesFragment extends BaseFragment implements ConferenceAdapt
         getActivity().startActivityForResult(intent, MainActivity.EDIT_CONF);
     }
 
-    protected void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
+    public void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case MainActivity.EDIT_CONF:
                 if (resultCode == RESULT_OK) {

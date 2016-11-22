@@ -31,8 +31,8 @@ import butterknife.OnClick;
 public class EditConferenceActivity extends BaseActivity {
 
     public static final String CONF_ID = "wejkfnwehed";
-    private static final int REQ_CODE = 32;
-    private static final int INVITE_DOCS = 922;
+    private static final int TOPID_EDIT_CODE = 32;
+    private static final int INVITE_DOCS_CODE = 922;
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -67,9 +67,9 @@ public class EditConferenceActivity extends BaseActivity {
     TextView tvInviteDoctors;
 
     private TopicAdapter topicAdapter;
-
     private Conference conference = null;
     private boolean isUpdate = false;
+    private Calendar newDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,16 +132,14 @@ public class EditConferenceActivity extends BaseActivity {
 
     @OnClick(R.id.btnAdd)
     public void onAddClick() {
-        //create new topic
-        startActivityForResult(TopicEditActivity.getIntent(this, conference.getId()), REQ_CODE);
+        startActivityForResult(TopicEditActivity.getIntent(this, conference.getId()), TOPID_EDIT_CODE);
     }
 
     @OnClick(R.id.tvInviteDoctors)
     public void onInviteDoctors() {
         saveConference();
-        startActivityForResult(InviteDocotrsActivity.getIntent(this, conference.getConferenceId()), INVITE_DOCS);
+        startActivityForResult(InviteDocotrsActivity.getIntent(this, conference.getConferenceId()), INVITE_DOCS_CODE);
     }
-
 
     @OnClick(R.id.tvDate)
     public void onDateCLicked(){
@@ -150,24 +148,22 @@ public class EditConferenceActivity extends BaseActivity {
         DatePickerDialog fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
+                newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 tvDate.setText(dateFormatter.format(newDate.getTime()));
-                conference.setDate(dateFormatter.format(newDate.getTime()));
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
         fromDatePickerDialog.show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
-            case REQ_CODE:
+            case TOPID_EDIT_CODE:
                 onTopicAdded();
                 return;
-            case INVITE_DOCS:
+            case INVITE_DOCS_CODE:
                 return;
         }
 
@@ -184,6 +180,10 @@ public class EditConferenceActivity extends BaseActivity {
             conference.setLocation(etLocation.getText().toString());
         }
 
+        if (newDate != null) {
+            conference.setDate(dateFormatter.format(newDate.getTime()));
+        }
+
         ConferenceDao dao = App.getDaoSession().getConferenceDao();
         Conference c = Conference.findById(conference.getConferenceId());
         if (c != null) {
@@ -195,7 +195,6 @@ public class EditConferenceActivity extends BaseActivity {
 
     @OnClick(R.id.tvSave)
     public void onSaveClick() {
-        //save date and location
         saveConference();
 
         setResult(RESULT_OK);
@@ -205,8 +204,8 @@ public class EditConferenceActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        //todo logic
         if (!isUpdate){
+            //we delete this conference, since user did not save it
             ConferenceDao dao = App.getDaoSession().getConferenceDao();
             dao.delete(conference);
         }

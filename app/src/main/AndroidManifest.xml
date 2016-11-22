@@ -16,7 +16,6 @@
         <activity android:name=".auth.SplashActivty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,10 +36,18 @@
         <activity
             android:name=".auth.LoginActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".main.MainActivity" />
-        <activity android:name=".main.EditConferenceActivity" />
-        <activity android:name=".main.TopicEditActivity" />
-        <activity android:name=".main.InviteDocotrsActivity"></activity>
+
+        <activity android:name=".main.MainActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity android:name=".main.EditConferenceActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity android:name=".main.TopicEditActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity android:name=".main.InviteDocotrsActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
     </application>
 
 </manifest>

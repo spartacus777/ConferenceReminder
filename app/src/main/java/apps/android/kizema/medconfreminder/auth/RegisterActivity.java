@@ -62,16 +62,12 @@ public class RegisterActivity extends BaseActivity {
     public void onNextClicked() {
 
         if (!EmailValidator.getInstance().validate(etEmail.getText().toString())){
-            Snackbar snackbar = Snackbar
-                    .make(etEmail, "Email is invalid", Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            Snackbar.make(etEmail, "Email is invalid", Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         if (!PasswordValidator.getInstance().validate(etPassword.getText().toString())){
-            Snackbar snackbar = Snackbar
-                    .make(etEmail, "Password should be more than 6 symbols and contain at least one digit", Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            Snackbar.make(etEmail, R.string.invalid_pass, Snackbar.LENGTH_SHORT).show();
             return;
         }
 

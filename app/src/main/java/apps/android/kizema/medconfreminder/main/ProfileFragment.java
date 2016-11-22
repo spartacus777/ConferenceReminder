@@ -61,8 +61,7 @@ public class ProfileFragment extends BaseFragment implements PictureGetterDialog
     private BaseActivity baseActivity;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
 
@@ -93,12 +92,12 @@ public class ProfileFragment extends BaseFragment implements PictureGetterDialog
     public void onSaveClicked() {
 
         if (!NameValidator.getInstance().validate(etName.getText().toString())){
-            Snackbar.make(etName, "Name is invalid", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(etName, R.string.invalid_name, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         if (!PasswordValidator.getInstance().validate(etPassword.getText().toString())){
-            Snackbar.make(etPassword, "Password should be more than 6 symbols and contain at least one digit", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(etPassword, R.string.invalid_pass, Snackbar.LENGTH_SHORT).show();
             return;
         }
 

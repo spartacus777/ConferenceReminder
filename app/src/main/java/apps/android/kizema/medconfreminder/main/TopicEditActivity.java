@@ -44,6 +44,8 @@ public class TopicEditActivity extends BaseActivity {
     }
 
     private void init(){
+        getSupportActionBar().setTitle("Create New Topic");
+
         if (getIntent() != null){
             conferenceId = getIntent().getLongExtra(CONF_ID, 0);
         }

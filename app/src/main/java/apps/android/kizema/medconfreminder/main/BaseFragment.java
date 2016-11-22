@@ -36,8 +36,6 @@ public class BaseFragment extends Fragment {
     }
 
     public void showProgress() {
-        //hideKeyBoard();
-
         if (progressDialog  == null){
             initAnimation();
 

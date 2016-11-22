@@ -14,16 +14,14 @@ import java.util.List;
 
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.auth.ProfilePhotoChooserActivity;
+import apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
-import apps.android.kizema.medconfreminder.main.ViewPagerAdapter.DataHolder;
+import apps.android.kizema.medconfreminder.main.adapters.ViewPagerAdapter;
+import apps.android.kizema.medconfreminder.main.adapters.ViewPagerAdapter.DataHolder;
 import apps.android.kizema.medconfreminder.util.DBSetter;
 import apps.android.kizema.medconfreminder.util.UserHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts.CHOOSER_IMAGE_ACTIVITY;
-import static apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts.REQUEST_CODE_GALLERY;
-import static apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts.REQUEST_CODE_MAKE_PHOTO;
 
 public class MainActivity extends BaseActivity {
 
@@ -83,7 +81,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_GALLERY:
+            case ImageConstatnts.REQUEST_CODE_GALLERY:
                 if (resultCode == RESULT_OK) {
                     Uri selectedImageUri = data.getData();
                     String photoPath = getPath(selectedImageUri);
@@ -95,12 +93,11 @@ public class MainActivity extends BaseActivity {
                 ((ConferencesFragment) viewPagerAdapter.getFragment(1)).handleOnActivityResult(requestCode, resultCode, data);
                 return;
 
-            case REQUEST_CODE_MAKE_PHOTO:
-            case CHOOSER_IMAGE_ACTIVITY:
+            case ImageConstatnts.REQUEST_CODE_MAKE_PHOTO:
+            case ImageConstatnts.CHOOSER_IMAGE_ACTIVITY:
                 ((ProfileFragment) viewPagerAdapter.getFragment(0)).handleOnActivityResult(requestCode, resultCode, data);
                 return;
         }
-
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -114,6 +111,6 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(this, ProfilePhotoChooserActivity.class);
         intent.putExtra(ProfilePhotoChooserActivity.PATH, photoPath);
 
-        startActivityForResult(intent, CHOOSER_IMAGE_ACTIVITY);
+        startActivityForResult(intent, ImageConstatnts.CHOOSER_IMAGE_ACTIVITY);
     }
 }

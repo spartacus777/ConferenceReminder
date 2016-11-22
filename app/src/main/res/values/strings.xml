@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Medical Conference Reminder</string>
+    <string name="app_name">Conference Reminder</string>
     <string name="no_inet">No internet connection</string>
-    ""
+    <string name="invalid_name">Name is invalid: it should be not empty and less then 20 letters</string>
+    <string name="invalid_pass">Password should be more than 6 symbols and contain at least one digit</string>
+
+
 </resources>

@@ -1,4 +1,4 @@
-package apps.android.kizema.medconfreminder.main;
+package apps.android.kizema.medconfreminder.main.adapters;
 
 import android.content.Context;
 import android.os.Bundle;

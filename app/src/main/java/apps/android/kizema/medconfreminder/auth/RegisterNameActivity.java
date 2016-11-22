@@ -75,9 +75,7 @@ public class RegisterNameActivity extends BaseActivity implements PictureGetterD
     @OnClick(R.id.tvNext)
     public void onRegisterClick() {
         if (!NameValidator.getInstance().validate(etName.getText().toString())){
-            Snackbar snackbar = Snackbar
-                    .make(etName, "Name should be not empty and less then 20 chars", Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            Snackbar.make(etName, R.string.invalid_name, Snackbar.LENGTH_SHORT).show();
             return;
         }
 
