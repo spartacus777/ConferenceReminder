@@ -13,7 +13,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".auth.SplashActivty">
+        <activity android:name=".auth.SplashActivty"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,32 +22,41 @@
         </activity>
         <activity
             android:name=".auth.RegisterRoleActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppNoActionBar" />
         <activity
             android:name=".auth.RegisterActivity"
             android:theme="@style/AppNoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".auth.RegisterNameActivity"
             android:theme="@style/AppNoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".auth.ProfilePhotoChooserActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".auth.LoginActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
         <activity android:name=".main.MainActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
-        <activity android:name=".main.EditConferenceActivity"
+        <activity android:name=".secondary.EditConferenceActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
-        <activity android:name=".main.TopicEditActivity"
+        <activity android:name=".secondary.EditTopicActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
-        <activity android:name=".main.InviteDocotrsActivity"
+        <activity android:name=".secondary.InviteDocotrsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
     </application>
 

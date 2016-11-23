@@ -21,6 +21,7 @@ import apps.android.kizema.medconfreminder.auth.helpers.ImageConstatnts;
 import apps.android.kizema.medconfreminder.auth.helpers.PictureGetterDialog;
 import apps.android.kizema.medconfreminder.auth.helpers.Session;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
+import apps.android.kizema.medconfreminder.base.BaseFragment;
 import apps.android.kizema.medconfreminder.model.AccountUser;
 import apps.android.kizema.medconfreminder.model.AccountUserDao;
 import apps.android.kizema.medconfreminder.model.User;

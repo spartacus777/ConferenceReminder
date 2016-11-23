@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import apps.android.kizema.medconfreminder.R;
+import apps.android.kizema.medconfreminder.base.BaseFragment;
 import apps.android.kizema.medconfreminder.main.adapters.InviteAdapter;
 import apps.android.kizema.medconfreminder.model.Conference;
 import apps.android.kizema.medconfreminder.model.ConferenceUserTable;
+import apps.android.kizema.medconfreminder.secondary.EditConferenceActivity;
 import apps.android.kizema.medconfreminder.util.UserHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;

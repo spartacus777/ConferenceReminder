@@ -1,4 +1,4 @@
-package apps.android.kizema.medconfreminder.main;
+package apps.android.kizema.medconfreminder.secondary;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TopicEditActivity extends BaseActivity {
+public class EditTopicActivity extends BaseActivity {
 
     public static final String CONF_ID = "sjwCONF_ID";
 
@@ -29,7 +29,7 @@ public class TopicEditActivity extends BaseActivity {
     private long conferenceId = 0;
 
     public static Intent getIntent(Activity activity, long conferenceId){
-        Intent intent = new Intent(activity, TopicEditActivity.class);
+        Intent intent = new Intent(activity, EditTopicActivity.class);
         intent.putExtra(CONF_ID, conferenceId);
         return intent;
     }

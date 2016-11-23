@@ -1,4 +1,4 @@
-package apps.android.kizema.medconfreminder.main;
+package apps.android.kizema.medconfreminder.secondary;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -26,7 +26,7 @@ import java.util.Locale;
 import apps.android.kizema.medconfreminder.App;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
-import apps.android.kizema.medconfreminder.main.adapters.TopicAdapter;
+import apps.android.kizema.medconfreminder.secondary.adapters.TopicAdapter;
 import apps.android.kizema.medconfreminder.model.Conference;
 import apps.android.kizema.medconfreminder.model.ConferenceDao;
 import apps.android.kizema.medconfreminder.model.ConferenceUserTable;
@@ -148,7 +148,7 @@ public class EditConferenceActivity extends BaseActivity {
 
     @OnClick(R.id.btnAdd)
     public void onAddClick() {
-        startActivityForResult(TopicEditActivity.getIntent(this, conference.getId()), TOPID_EDIT_CODE);
+        startActivityForResult(EditTopicActivity.getIntent(this, conference.getId()), TOPID_EDIT_CODE);
     }
 
     @OnClick(R.id.tvInviteDoctors)

@@ -1,4 +1,4 @@
-package apps.android.kizema.medconfreminder.main.adapters;
+package apps.android.kizema.medconfreminder.secondary.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

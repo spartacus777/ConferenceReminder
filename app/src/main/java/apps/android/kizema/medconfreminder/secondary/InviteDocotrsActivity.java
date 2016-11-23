@@ -1,4 +1,4 @@
-package apps.android.kizema.medconfreminder.main;
+package apps.android.kizema.medconfreminder.secondary;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import java.util.List;
 import apps.android.kizema.medconfreminder.App;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
-import apps.android.kizema.medconfreminder.main.adapters.DoctorsAdapter;
+import apps.android.kizema.medconfreminder.secondary.adapters.DoctorsAdapter;
 import apps.android.kizema.medconfreminder.model.Conference;
 import apps.android.kizema.medconfreminder.model.ConferenceUserTable;
 import apps.android.kizema.medconfreminder.model.ConferenceUserTableDao;

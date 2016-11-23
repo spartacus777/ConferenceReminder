@@ -1,4 +1,4 @@
-package apps.android.kizema.medconfreminder.main;
+package apps.android.kizema.medconfreminder.base;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
