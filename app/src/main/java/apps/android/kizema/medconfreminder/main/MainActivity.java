@@ -90,12 +90,16 @@ public class MainActivity extends BaseActivity {
                 }
 
             case EDIT_CONF:
-                ((ConferencesFragment) viewPagerAdapter.getFragment(1)).handleOnActivityResult(requestCode, resultCode, data);
+                if ( viewPagerAdapter.getFragment(1) != null) {
+                    ((ConferencesFragment) viewPagerAdapter.getFragment(1)).handleOnActivityResult(requestCode, resultCode, data);
+                }
                 return;
 
             case ImageConstatnts.REQUEST_CODE_MAKE_PHOTO:
             case ImageConstatnts.CHOOSER_IMAGE_ACTIVITY:
-                ((ProfileFragment) viewPagerAdapter.getFragment(0)).handleOnActivityResult(requestCode, resultCode, data);
+                if ( viewPagerAdapter.getFragment(0) != null) {
+                    ((ProfileFragment) viewPagerAdapter.getFragment(0)).handleOnActivityResult(requestCode, resultCode, data);
+                }
                 return;
         }
 

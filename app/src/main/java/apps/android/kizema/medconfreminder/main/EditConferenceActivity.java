@@ -134,7 +134,7 @@ public class EditConferenceActivity extends BaseActivity {
         //disable for non-owners
         if (!UserHelper.getMyUser().getIsAdmin() || !conference.getUserId().equals(UserHelper.getMyUser().getUserId())){
             tvSave.setVisibility(View.GONE);
-            etLocation.setVisibility(View.GONE);
+            etLocation.setEnabled(false);
             tvDate.setEnabled(false);
             llName.setVisibility(View.GONE);
             tvInviteDoctors.setVisibility(View.GONE);
@@ -291,8 +291,25 @@ public class EditConferenceActivity extends BaseActivity {
         }
     }
 
-    private void deleteConference(){
+    private void showDeleteDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete this Conference?");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                deleteConference();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
+    private void deleteConference(){
         showProgress();
 
         ConferenceUserTableDao dao0 = App.getDaoSession().getConferenceUserTableDao();
@@ -339,7 +356,7 @@ public class EditConferenceActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete:
-                deleteConference();
+                showDeleteDialog();
                 break;
         }
         return true;
