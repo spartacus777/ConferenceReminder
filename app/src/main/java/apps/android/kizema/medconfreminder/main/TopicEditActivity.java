@@ -62,7 +62,9 @@ public class TopicEditActivity extends BaseActivity {
         topic.setConferneceId(conferenceId);
         dao.insert(topic);
 
-        setResult(RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra("TOPIC", topic.getName());
+        setResult(RESULT_OK, intent);
         finish();
         overridePendingTransition(R.anim.tab_activity_transition_in, R.anim.tab_activity_transition_out);
     }

@@ -1,8 +1,11 @@
 package apps.android.kizema.medconfreminder.main;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,8 +13,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -161,7 +166,10 @@ public class EditConferenceActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
             case TOPID_EDIT_CODE:
-                onTopicAdded();
+                if (resultCode == RESULT_OK) {
+                    String topicName = data.getStringExtra("TOPIC");
+                    onTopicAdded(topicName);
+                }
                 return;
             case INVITE_DOCS_CODE:
                 return;
@@ -214,9 +222,50 @@ public class EditConferenceActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    public void onTopicAdded(){
+    private void showCreateEventDialog(final String topicName){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Create Calendar event?");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                sendShareCalendarIntent(topicName);
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void sendShareCalendarIntent(String topicName){
+        String date = conference.getDate();
+        Calendar cal = Calendar.getInstance();
+
+        try {
+            Date mDate = dateFormatter.parse(date);
+            cal.setTime(mDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra(CalendarContract.Events.TITLE, conference.getConferenceName());
+        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
+        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis() + 3*60*60*1000);
+        intent.putExtra(CalendarContract.Events.ALL_DAY, false);// periodicity
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, "You are lector on " + conference.getConferenceName() + " with topic " + topicName);
+        startActivity(intent);
+    }
+
+    private void onTopicAdded(String topicName){
         topicAdapter.update(getFromDb());
         check();
+
+        showCreateEventDialog(topicName);
     }
 
     private void check(){
