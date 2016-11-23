@@ -5,6 +5,7 @@ import org.junit.Test;
 import apps.android.kizema.medconfreminder.util.validator.EmailValidator;
 import apps.android.kizema.medconfreminder.util.validator.NameValidator;
 import apps.android.kizema.medconfreminder.util.validator.PasswordValidator;
+import apps.android.kizema.medconfreminder.util.validator.StringValidator;
 
 import static org.junit.Assert.*;
 
@@ -63,11 +64,31 @@ public class ValidatorUnitTest {
         assertEquals(validator.validate("jdnejwkbdkwedjwe"), false);
 
         assertEquals(validator.validate("jkad37 dnwe edew"), true);
-        
+
         assertEquals(validator.validate("21832732732"), true);
 
         assertEquals(validator.validate("djw2oe"), true);
 
         assertEquals(validator.validate("jkad37dh2djwendwe dewdwekdnwedewnndwedwe dwenwdew"), false);
     }
+
+    @Test
+    public void stringvalidator_test() throws Exception {
+        StringValidator validator = StringValidator.getInstance();
+
+        assertEquals(validator.validate(""), false);
+
+        assertEquals(validator.validate("N"), true);
+
+        assertEquals(validator.validate("jdnejwkbdkwedjwe"), true);
+
+        assertEquals(validator.validate("jkad37 dnwe edew"), true);
+
+        assertEquals(validator.validate("21832732732"), true);
+
+        assertEquals(validator.validate("djw2oe"), true);
+
+        assertEquals(validator.validate("jkad37dh2djwendwe dewdwekdnwedewnndwedwe dwenwdew"), true);
+    }
+
 }

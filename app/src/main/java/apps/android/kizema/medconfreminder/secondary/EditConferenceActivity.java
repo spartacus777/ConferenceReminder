@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +27,6 @@ import java.util.Locale;
 import apps.android.kizema.medconfreminder.App;
 import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
-import apps.android.kizema.medconfreminder.secondary.adapters.TopicAdapter;
 import apps.android.kizema.medconfreminder.model.Conference;
 import apps.android.kizema.medconfreminder.model.ConferenceDao;
 import apps.android.kizema.medconfreminder.model.ConferenceUserTable;
@@ -34,8 +34,10 @@ import apps.android.kizema.medconfreminder.model.ConferenceUserTableDao;
 import apps.android.kizema.medconfreminder.model.Topic;
 import apps.android.kizema.medconfreminder.model.TopicDao;
 import apps.android.kizema.medconfreminder.model.User;
+import apps.android.kizema.medconfreminder.secondary.adapters.TopicAdapter;
 import apps.android.kizema.medconfreminder.util.LongGen;
 import apps.android.kizema.medconfreminder.util.UserHelper;
+import apps.android.kizema.medconfreminder.util.validator.StringValidator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -214,6 +216,16 @@ public class EditConferenceActivity extends BaseActivity {
 
     @OnClick(R.id.tvSave)
     public void onSaveClick() {
+        if (!StringValidator.getInstance().validate(etLocation.getText().toString())){
+            Snackbar.make(etLocation, R.string.invalid_location, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!StringValidator.getInstance().validate(etName.getText().toString())){
+            Snackbar.make(etName, R.string.invalid_conf_name, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         saveConference();
 
         setResult(RESULT_OK);
