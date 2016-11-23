@@ -8,6 +8,9 @@ import android.provider.CalendarContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -26,12 +29,18 @@ import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.main.adapters.TopicAdapter;
 import apps.android.kizema.medconfreminder.model.Conference;
 import apps.android.kizema.medconfreminder.model.ConferenceDao;
+import apps.android.kizema.medconfreminder.model.ConferenceUserTable;
+import apps.android.kizema.medconfreminder.model.ConferenceUserTableDao;
 import apps.android.kizema.medconfreminder.model.Topic;
+import apps.android.kizema.medconfreminder.model.TopicDao;
+import apps.android.kizema.medconfreminder.model.User;
 import apps.android.kizema.medconfreminder.util.LongGen;
 import apps.android.kizema.medconfreminder.util.UserHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static apps.android.kizema.medconfreminder.model.Topic.getAllForConferenceId;
 
 public class EditConferenceActivity extends BaseActivity {
 
@@ -75,6 +84,7 @@ public class EditConferenceActivity extends BaseActivity {
     private Conference conference = null;
     private boolean isUpdate = false;
     private Calendar newDate;
+    private boolean isOwner = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,11 +138,12 @@ public class EditConferenceActivity extends BaseActivity {
             tvDate.setEnabled(false);
             llName.setVisibility(View.GONE);
             tvInviteDoctors.setVisibility(View.GONE);
+            isOwner = false;
         }
     }
 
     public List<Topic> getFromDb(){
-        return Topic.getAllForConferenceId(conference.getId());
+        return getAllForConferenceId(conference.getId());
     }
 
     @OnClick(R.id.btnAdd)
@@ -214,8 +225,7 @@ public class EditConferenceActivity extends BaseActivity {
     public void onBackPressed() {
         if (!isUpdate){
             //we delete this conference, since user did not save it
-            ConferenceDao dao = App.getDaoSession().getConferenceDao();
-            dao.delete(conference);
+            deleteConference();
         }
 
         setResult(RESULT_CANCELED);
@@ -280,5 +290,60 @@ public class EditConferenceActivity extends BaseActivity {
             tvTopics.setVisibility(View.VISIBLE);
         }
     }
+
+    private void deleteConference(){
+
+        showProgress();
+
+        ConferenceUserTableDao dao0 = App.getDaoSession().getConferenceUserTableDao();
+        List<ConferenceUserTable> conferenceUserTables = ConferenceUserTable.getAllUsersForConference(conference.getId());
+        for (ConferenceUserTable c : conferenceUserTables){
+            User user = User.findById(c.getUserId());
+            if (user != null){
+                user.getConferenceIds().remove(c);
+            }
+
+            Conference conf = Conference.findById(c.getConferneceId());
+            if (conf != null){
+                conf.getInvitedDoctors().remove(c);
+            }
+
+            dao0.delete(c);
+        }
+
+        TopicDao topicDao = App.getDaoSession().getTopicDao();
+        List<Topic> topics = Topic.getAllForConferenceId(conference.getId());
+        for (Topic t : topics){
+            topicDao.delete(t);
+        }
+
+        ConferenceDao dao = App.getDaoSession().getConferenceDao();
+        dao.delete(conference);
+
+        setResult(RESULT_OK);
+        finish();
+        overridePendingTransition(R.anim.tab_activity_transition_in, R.anim.tab_activity_transition_out);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (isOwner) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.edit_conf, menu);
+            return true;
+        }
+
+        return false;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                deleteConference();
+                break;
+        }
+        return true;
+    }
+
 
 }

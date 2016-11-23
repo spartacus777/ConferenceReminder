@@ -64,6 +64,19 @@ public class User {
         return users.get(0);
     }
 
+    public static User findById(long userId){
+        DaoSession daoSession = App.getDaoSession();
+        UserDao userDao = daoSession.getUserDao();
+
+        QueryBuilder<User> queryBuilder = userDao.queryBuilder();
+        List<User> users = queryBuilder.where(UserDao.Properties.Id.eq(userId)).list();
+        if (users == null || users.size() == 0){
+            return null;
+        }
+
+        return users.get(0);
+    }
+
     public static List<User> loadAllDoctors(){
         DaoSession daoSession = App.getDaoSession();
         UserDao userDao = daoSession.getUserDao();
