@@ -35,9 +35,9 @@ public class PasswordValidator {
      */
     public boolean validate(final String password){
 
-//        matcher = pattern.matcher(password);
-//        return matcher.matches();
-        return true;
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+//        return true;
     }
 
 }

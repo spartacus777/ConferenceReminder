@@ -31,12 +31,12 @@ public class NameValidator {
     /**
      * Validate password with regular expression
      *
-     * @param password password for validation
-     * @return true valid password, false invalid password
+     * @param name name for validation
+     * @return true valid name, false invalid name
      */
-    public boolean validate(final String password) {
+    public boolean validate(final String name) {
 
-        matcher = pattern.matcher(password);
+        matcher = pattern.matcher(name);
         return matcher.matches();
 
     }
