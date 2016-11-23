@@ -221,11 +221,6 @@ public class EditConferenceActivity extends BaseActivity {
             return;
         }
 
-        if (!StringValidator.getInstance().validate(etName.getText().toString())){
-            Snackbar.make(etName, R.string.invalid_conf_name, Snackbar.LENGTH_SHORT).show();
-            return;
-        }
-
         saveConference();
 
         setResult(RESULT_OK);

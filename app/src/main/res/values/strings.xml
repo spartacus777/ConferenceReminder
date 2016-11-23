@@ -4,7 +4,7 @@
     <string name="invalid_name">Name is invalid: it should be not empty and less then 20 letters</string>
     <string name="invalid_pass">Password should be more than 6 symbols and contain at least one digit</string>
     <string name="invalid_location">Invalid location</string>
-    <string name="invalid_conf_name">Invalod conference name</string>
-    <string name="invalid_topic_name">Invalod topic name</string>
+    <string name="invalid_conf_name">Invalid conference name</string>
+    <string name="invalid_topic_name">Invalid topic name</string>
 
 </resources>
