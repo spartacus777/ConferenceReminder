@@ -3,6 +3,7 @@ package apps.android.kizema.medconfreminder.secondary;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.model.Topic;
 import apps.android.kizema.medconfreminder.model.TopicDao;
 import apps.android.kizema.medconfreminder.util.UserHelper;
+import apps.android.kizema.medconfreminder.util.validator.StringValidator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -53,6 +55,11 @@ public class EditTopicActivity extends BaseActivity {
 
     @OnClick(R.id.tvSave)
     public void onSaveClick() {
+        if (!StringValidator.getInstance().validate(etName.getText().toString())){
+            Snackbar.make(etName, R.string.invalid_topic_name, Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         TopicDao dao = App.getDaoSession().getTopicDao();
 
         Topic topic = new Topic();
