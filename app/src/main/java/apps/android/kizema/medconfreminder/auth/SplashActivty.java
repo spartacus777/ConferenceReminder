@@ -3,11 +3,9 @@ package apps.android.kizema.medconfreminder.auth;
 import android.content.Intent;
 import android.os.Bundle;
 
+import apps.android.kizema.medconfreminder.R;
 import apps.android.kizema.medconfreminder.base.BaseActivity;
 import apps.android.kizema.medconfreminder.main.MainActivity;
-import apps.android.kizema.medconfreminder.R;
-import apps.android.kizema.medconfreminder.auth.helpers.Session;
-import apps.android.kizema.medconfreminder.model.AccountUser;
 
 public class SplashActivty extends BaseActivity {
 
@@ -16,17 +14,17 @@ public class SplashActivty extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_activty);
 
-        // check if we have session
-        if (Session.getInstance().getNameToken() != null && Session.getInstance().getNameToken().length() > 0 &&
-                Session.getInstance().getPassToken() != null && Session.getInstance().getPassToken().length() > 0 ){
-
-            if (AccountUser.find(Session.getInstance().getNameToken(), Session.getInstance().getPassToken()) != null){
-                openApp();
-                return;
-            }
-        }
-
-        startRegister();
+//        // check if we have session
+//        if (Session.getInstance().getNameToken() != null && Session.getInstance().getNameToken().length() > 0 &&
+//                Session.getInstance().getPassToken() != null && Session.getInstance().getPassToken().length() > 0 ){
+//
+//            if (AccountUser.find(Session.getInstance().getNameToken(), Session.getInstance().getPassToken()) != null){
+//                openApp();
+//                return;
+//            }
+//        }
+//
+//        startRegister();
     }
 
     private void startRegister(){
