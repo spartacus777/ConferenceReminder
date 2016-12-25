@@ -37,28 +37,27 @@ I always use this awesome lib, since it can cache in memory and disc, and load p
   <img src="https://s24.postimg.org/3ld51ugg5/Screenshot_2016_11_23_18_32_11.png" width="250"/>
   <img src="https://s28.postimg.org/kyoe6ybv1/Screenshot_2016_11_23_18_32_37.png" width="250"/>
 </p>
-<p align="center">Registration/Login screens</p>
+<p align="center">Registration/Login screens</p></br>
 
  <p align="center">
   <img src="https://s23.postimg.org/gjkjb3xez/Screenshot_2016_11_23_18_33_01.png" width="250"/>
   <img src="https://s27.postimg.org/qvmj3eeer/Screenshot_2016_11_23_18_33_03.png" width="250"/>
 </p>
-<p align="center"> Main Ativity with two fragments - profile and conference list</p>
-
- 
+<p align="center"> Main Ativity with two fragments - profile and conference list</p></br>
 
  <p align="center">
  <img src="https://s23.postimg.org/bv6vs77nv/Screenshot_2016_11_23_18_33_27.png" width="250"/>
   <img src="https://s24.postimg.org/dpcvuoa6t/Screenshot_2016_11_23_18_33_31.png" width="250"/>
   <img src="https://s28.postimg.org/bjcug6xfx/Screenshot_2016_11_23_18_33_35.png" width="250"/> 
 </p>
-<p align="center">Here we create new conference, and invite doctors to it</p>
+<p align="center">Here we create new conference, and invite doctors to it</p></br>
+
 
  <p align="center">
  <img src="https://s27.postimg.org/3znnshcmr/Screenshot_2016_11_23_18_38_09.png" width="250"/>
   <img src="https://s29.postimg.org/5dot61fmf/Screenshot_2016_11_23_18_38_34.png" width="250"/>
 </p>
-<p align="center"> We log out, and log in as a doctor. we can see third fragment, called Invite, we can accept/reject it. also, we can suggest topics to the conference</p>
+<p align="center"> We log out, and log in as a doctor. we can see third fragment, called Invite, we can accept/reject it. also, we can suggest topics to the conference</p></br>
 
 
 ####How to build: 
